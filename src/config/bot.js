@@ -22,14 +22,12 @@ export const botConfig = {
     // 3 = Watching
     // 4 = Custom
     // 5 = Competing
-    activities: [
-      {
-        // Text users will see (example: "Playing /help | Titan Bot").
-        name: "Stworzony Przez polskarp1",
-        // Activity type number (0 = Playing).
-        type: 0, 
-      },
-    ],
+   activities: [
+  {
+    name: "🚒 System Wspomagania Dowodzenia (Owner polskarp1)",
+    type: 3,
+  },
+],
   },
 
   // =========================
@@ -134,12 +132,10 @@ export const botConfig = {
         urgent: "#e74c3c",
       },
     },
-    footer: {
-      // Default footer text used in bot embeds.
-      text: "Titan Bot",
-      // Footer icon URL (null = no icon).
-      icon: null,
-    },
+  footer: {
+  text: "🚒 SKKP-SWD",
+  icon: null,
+},
     // Default thumbnail URL for embeds (null = no thumbnail).
     thumbnail: null,
     author: {
@@ -211,27 +207,27 @@ export const botConfig = {
       none: {
         emoji: "⚪",
         color: "#95A5A6",
-        label: "None",
+        label: "Brak",
       },
       low: {
         emoji: "🟢",
         color: "#2ECC71",
-        label: "Low",
+        label: "Niski",
       },
       medium: {
         emoji: "🟡",
         color: "#F1C40F",
-        label: "Medium",
+        label: "Średni",
       },
       high: {
         emoji: "🔴",
         color: "#E74C3C",
-        label: "High",
+        label: "Wysoki",
       },
       urgent: {
         emoji: "🚨",
         color: "#E91E63",
-        label: "Urgent",
+        label: "Pilny",
       },
     },
 
@@ -288,11 +284,9 @@ export const botConfig = {
   // VERIFICATION SETTINGS
   // =========================
   verification: {
-    // Message shown when posting the verification panel.
-    defaultMessage: "Click the button below to verify yourself and gain access to the server!",
-
-    // Text on the verification button.
-    defaultButtonText: "Verify",
+  defaultMessage:
+  "🚨 Kliknij przycisk poniżej, aby zweryfikować się i uzyskać dostęp do serwera.",
+defaultButtonText: "Zweryfikuj",
 
     // Automatic verification behavior.
     autoVerify: {
@@ -358,12 +352,11 @@ export const botConfig = {
   welcome: {
     // Welcome template posted when a user joins.
     // Placeholders: {user}, {server}, {memberCount}
-    defaultWelcomeMessage:
-      "Welcome {user} to {server}! We now have {memberCount} members!",
-    // Goodbye template posted when a user leaves.
-    // Placeholders: {user}, {memberCount}
-    defaultGoodbyeMessage:
-      "{user} has left the server. We now have {memberCount} members.",
+defaultWelcomeMessage:
+  "🚒 Witaj {user} w {server}! Stan osobowy jednostki: {memberCount}.",
+
+defaultGoodbyeMessage:
+  "📤 {user} opuścił(a) jednostkę. Pozostało {memberCount} członków.",
     // Channel ID for welcome messages.
     defaultWelcomeChannel: null,
     // Channel ID for goodbye messages.
@@ -420,15 +413,15 @@ export const botConfig = {
   // =========================
   // GENERIC BOT MESSAGES
   // =========================
-  messages: {
-    noPermission: "You do not have permission to use this command.",
-    cooldownActive: "Please wait {time} before using this command again.",
-    errorOccurred: "An error occurred while executing this command.",
-    missingPermissions:
-      "I am missing required permissions to perform this action.",
-    commandDisabled: "This command has been disabled.",
-    maintenanceMode: "The bot is currently in maintenance mode.",
-  },
+messages: {
+  noPermission: "❌ Nie posiadasz wymaganych uprawnień.",
+  cooldownActive: "⏳ Poczekaj {time} przed ponownym użyciem komendy.",
+  errorOccurred: "❌ Wystąpił błąd podczas wykonywania komendy.",
+  missingPermissions:
+    "⚠️ Bot nie posiada wymaganych uprawnień do wykonania tej operacji.",
+  commandDisabled: "🚫 Ta komenda jest wyłączona.",
+  maintenanceMode: "🔧 System znajduje się w trybie konserwacji.",
+},
 
   // =========================
   // FEATURE TOGGLES
