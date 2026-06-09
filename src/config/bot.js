@@ -10,25 +10,15 @@ export const botConfig = {
   // - "idle"      = yellow moon
   // - "dnd"       = red do-not-disturb
   // - "invisible" = appears offline
-  presence: {
-    // Current online state shown on Discord.
-    status: "online",
-
-    // Activity lines shown under the bot name.
-    // `type` number mapping from Discord:
-    // 0 = Playing
-    // 1 = Streaming
-    // 2 = Listening
-    // 3 = Watching
-    // 4 = Custom
-    // 5 = Competing
-   activities: [
-  {
-    name: "🚒 System Wspomagania Dowodzenia (Owner polskarp1)",
-    type: 3,
-  },
-],
-  },
+presence: {
+  status: "online",
+  activities: [
+    {
+      name: "SWD PSP • Stanowisko Kierowania",
+      type: 3,
+    },
+  ],
+},
 
   // =========================
   // COMMAND BEHAVIOR
@@ -133,7 +123,7 @@ export const botConfig = {
       },
     },
   footer: {
-  text: "🚒 SKKP-SWD",
+  text: "SWD PSP • System Wspomagania Dowodzenia",
   icon: null,
 },
     // Default thumbnail URL for embeds (null = no thumbnail).
@@ -285,8 +275,9 @@ export const botConfig = {
   // =========================
   verification: {
   defaultMessage:
-  "🚨 Kliknij przycisk poniżej, aby zweryfikować się i uzyskać dostęp do serwera.",
-defaultButtonText: "Zweryfikuj",
+    "SWD: dostęp ograniczony. Wymagana weryfikacja operatora systemu.",
+  defaultButtonText: "Wejście do SWD",
+},
 
     // Automatic verification behavior.
     autoVerify: {
@@ -349,20 +340,12 @@ defaultButtonText: "Zweryfikuj",
   // =========================
   // WELCOME / GOODBYE MESSAGES
   // =========================
-  welcome: {
-    // Welcome template posted when a user joins.
-    // Placeholders: {user}, {server}, {memberCount}
-defaultWelcomeMessage:
-  "🚒 Witaj {user} w {server}! Stan osobowy jednostki: {memberCount}.",
-
-defaultGoodbyeMessage:
-  "📤 {user} opuścił(a) jednostkę. Pozostało {memberCount} członków.",
-    // Channel ID for welcome messages.
-    defaultWelcomeChannel: null,
-    // Channel ID for goodbye messages.
-    defaultGoodbyeChannel: null,
-  },
-
+welcome: {
+  defaultWelcomeMessage:
+    "SWD LOG: użytkownik {user} zalogowany do systemu. Stan: {memberCount}.",
+  defaultGoodbyeMessage:
+    "SWD LOG: użytkownik {user} wylogowany. Stan systemu: {memberCount}.",
+},
   // =========================
   // COUNTER CHANNELS
   // =========================
@@ -414,13 +397,12 @@ defaultGoodbyeMessage:
   // GENERIC BOT MESSAGES
   // =========================
 messages: {
-  noPermission: "❌ Nie posiadasz wymaganych uprawnień.",
-  cooldownActive: "⏳ Poczekaj {time} przed ponownym użyciem komendy.",
-  errorOccurred: "❌ Wystąpił błąd podczas wykonywania komendy.",
-  missingPermissions:
-    "⚠️ Bot nie posiada wymaganych uprawnień do wykonania tej operacji.",
-  commandDisabled: "🚫 Ta komenda jest wyłączona.",
-  maintenanceMode: "🔧 System znajduje się w trybie konserwacji.",
+  noPermission: "SWD: brak dostępu do funkcji.",
+  cooldownActive: "SWD: operacja zablokowana ({time}).",
+  errorOccurred: "SWD: błąd systemu.",
+  missingPermissions: "SWD: brak uprawnień w systemie.",
+  commandDisabled: "SWD: funkcja wyłączona.",
+  maintenanceMode: "SWD: tryb serwisowy aktywny.",
 },
 
   // =========================
@@ -429,30 +411,30 @@ messages: {
   // Set any feature to `false` to disable it globally.
   features: {
     // Core systems.
-    economy: true,
-    leveling: true,
+    economy: false,
+    leveling: false,
     moderation: true,
     logging: true,
-    welcome: true,
+    welcome: false,
 
     // Community engagement systems.
-    tickets: true,
-    giveaways: true,
-    birthday: true,
-    counter: true,
+    tickets: false,
+    giveaways: false,
+    birthday: false,
+    counter: false,
 
     // Security and self-service systems.
-    verification: true,
-    reactionRoles: true,
-    joinToCreate: true,
+    verification: false,
+    reactionRoles: false,
+    joinToCreate: false,
 
     // Utility/quality-of-life modules.
-    voice: true,
-    search: true,
-    tools: true,
+    voice: false,
+    search: false,
+    tools: false,
     utility: true,
-    community: true,
-    fun: true,
+    community: false,
+    fun: false,
   },
 };
 
