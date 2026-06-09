@@ -305,6 +305,7 @@ class TitanBot extends Client {
     } catch (error) {
       logger.error('Error registering commands:', error);
     }
+  await guild.commands.set([]);
   }
 
   async shutdown(reason = 'UNKNOWN') {
