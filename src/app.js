@@ -15,7 +15,7 @@ class SWDBot extends Client {
   }
 
   async start() {
-    console.log('🚓 SWD START...');
+    console.log('🚓 SWD SYSTEM START...');
 
     this.startWeb();
     this.loadCommands();
@@ -35,22 +35,23 @@ class SWDBot extends Client {
     });
 
     app.listen(3000, () => {
-      console.log('🌐 Web OK');
+      console.log('🌐 WEB OK');
     });
   }
 
   loadCommands() {
-    // na start testowo 1 komenda
-    this.commands.set('nick', {
+    // 🔥 TU MASZ SYSTEM SWD (bez nick)
+    this.commands.set('wyjazd', {
       data: {
-        name: 'nick',
-        description: 'Zmienia nick funkcjonariusza',
+        name: 'wyjazd',
+        description: 'Zgłoszenie wyjazdu jednostki',
         toJSON() {
           return this;
         }
       },
+
       async execute(interaction) {
-        await interaction.reply('🚓 Nick system działa!');
+        await interaction.reply('🚨 Jednostka została zadysponowana!');
       }
     });
   }
@@ -58,11 +59,13 @@ class SWDBot extends Client {
   async registerCommands() {
     const guild = await this.guilds.fetch(process.env.GUILD_ID);
 
-    const commands = [...this.commands.values()].map(c => c.data);
+    const commands = [...this.commands.values()].map(cmd =>
+      cmd.data
+    );
 
     await guild.commands.set(commands);
 
-    console.log('📡 Slash commands zarejestrowane');
+    console.log('📡 Slash commands registered');
   }
 }
 
