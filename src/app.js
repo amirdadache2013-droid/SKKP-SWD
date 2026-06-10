@@ -1,116 +1,71 @@
 import 'dotenv/config';
 import { Client, Collection, GatewayIntentBits } from 'discord.js';
 import express from 'express';
-import cron from 'node-cron';
 
-import config from './config/application.js';
-import { initializeDatabase } from './utils/database.js';
-import { logger, startupLog, shutdownLog } from './utils/logger.js';
-
-import { checkBirthdays } from './services/birthdayService.js';
-import { checkGiveaways } from './services/giveawayService.js';
-
-import { loadCommands, registerCommands } from './handlers/commandLoader.js';
-
-class TitanBot extends Client {
+class SWDBot extends Client {
   constructor() {
     super({
       intents: [
         GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMembers,
-        GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.MessageContent,
-        GatewayIntentBits.GuildVoiceStates,
-        GatewayIntentBits.GuildBans,
-      ],
+        GatewayIntentBits.GuildMembers
+      ]
     });
 
-    this.config = config;
     this.commands = new Collection();
-    this.cooldowns = new Collection();
-    this.db = null;
   }
 
   async start() {
-    try {
-      startupLog('Starting SWD Bot...');
+    console.log('🚓 SWD START...');
 
-      await initializeDatabase();
+    this.startWeb();
+    this.loadCommands();
 
-      this.startWebServer();
+    await this.login(process.env.DISCORD_TOKEN);
 
-      startupLog('Loading commands...');
-      await loadCommands(this);
+    await this.registerCommands();
 
-      startupLog(`Loaded commands: ${this.commands.size}`);
-
-      startupLog('Logging into Discord...');
-      await this.login(this.config.bot.token);
-
-      startupLog('Registering slash commands...');
-      await this.registerCommands();
-
-      startupLog('Bot is ONLINE ✅');
-
-      this.setupCronJobs();
-
-    } catch (err) {
-      logger.error(err);
-      process.exit(1);
-    }
+    console.log('✅ SWD ONLINE');
   }
 
-  startWebServer() {
+  startWeb() {
     const app = express();
 
     app.get('/health', (req, res) => {
-      res.json({ status: 'ok', bot: 'SWD ONLINE' });
+      res.json({ status: 'SWD ONLINE' });
     });
 
-    app.listen(process.env.PORT || 3000, () => {
-      startupLog('Web server running');
+    app.listen(3000, () => {
+      console.log('🌐 Web OK');
     });
   }
 
-  setupCronJobs() {
-    cron.schedule('0 6 * * *', () => checkBirthdays(this));
-    cron.schedule('* * * * *', () => checkGiveaways(this));
+  loadCommands() {
+    // na start testowo 1 komenda
+    this.commands.set('nick', {
+      data: {
+        name: 'nick',
+        description: 'Zmienia nick funkcjonariusza',
+        toJSON() {
+          return this;
+        }
+      },
+      async execute(interaction) {
+        await interaction.reply('🚓 Nick system działa!');
+      }
+    });
   }
 
   async registerCommands() {
-    try {
-      const guildId = this.config.bot.guildId;
+    const guild = await this.guilds.fetch(process.env.GUILD_ID);
 
-      if (!guildId) {
-        logger.error("Missing guildId in config.bot.guildId");
-        return;
-      }
+    const commands = [...this.commands.values()].map(c => c.data);
 
-      const guild = await this.guilds.fetch(guildId);
+    await guild.commands.set(commands);
 
-      const commands = Array.from(this.commands.values()).map(cmd =>
-        cmd.data.toJSON()
-      );
-
-      await guild.commands.set(commands);
-
-      startupLog(`Slash commands registered: ${commands.length}`);
-    } catch (err) {
-      logger.error('Command registration error:', err);
-    }
-  }
-
-  async shutdown(reason = 'unknown') {
-    shutdownLog(`Stopping bot: ${reason}`);
-    this.destroy();
-    process.exit(0);
+    console.log('📡 Slash commands zarejestrowane');
   }
 }
 
-// START BOT
-const bot = new TitanBot();
-
-process.on('SIGINT', () => bot.shutdown('SIGINT'));
-process.on('SIGTERM', () => bot.shutdown('SIGTERM'));
+const bot = new SWDBot();
 
 bot.start();
