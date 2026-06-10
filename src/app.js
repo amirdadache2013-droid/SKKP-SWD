@@ -91,9 +91,6 @@ class TitanBot extends Client {
 
       const guild = await this.guilds.fetch(guildId);
 
-      // 🔥 1. USUŃ WSZYSTKIE STARE KOMENDY
-      await guild.commands.set([]);
-
       // 🔥 2. ZBUDUJ SWD KOMENDY
       const commands = Array.from(this.commands.values()).map(cmd =>
         cmd.data.toJSON()
