@@ -50,7 +50,7 @@ class TitanBot extends Client {
       await this.login(this.config.bot.token);
 
       startupLog('Registering SWD slash commands...');
-      await this.registerCommands();
+      await this.();
 
       startupLog('Bot is ONLINE ✅');
 
@@ -80,16 +80,14 @@ class TitanBot extends Client {
   }
 
   // 🔥 NAJWAŻNIEJSZA CZĘŚĆ (POPRAWIONA)
-  async registerCommands() {
-    try {
-      const guildId = this.config.bot.guildId;
-
-      if (!guildId) {
-        logger.warn('No guildId provided');
-        return;
-      }
-
-      const guild = await this.guilds.fetch(guildId);
+ async registerCommands() {
+  try {
+    await registerSlashCommands(this, this.config.bot.guildId);
+    logger.info("Slash commands registered successfully");
+  } catch (error) {
+    logger.error('Error registering commands:', error);
+  }
+}
 
       // 🔥 2. ZBUDUJ SWD KOMENDY
       const commands = Array.from(this.commands.values()).map(cmd =>
